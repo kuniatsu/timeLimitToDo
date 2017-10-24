@@ -1,0 +1,222 @@
+.hidden{visibility:hidden;}
+.through {text-decoration: line-through;}
+.dispnon{display: none;}
+.darwin{
+    width:100%;
+    opacity: 0;
+    background-image:url(darwin00001.png);
+}
+
+html, body{
+    margin: 0;         /* 余白の削除 */
+    padding: 0;        /* 余白の削除 */
+    width:100%;
+    height:100%;
+    font-size: 32px;
+}
+
+
+header{
+    margin:0;
+    position: fixed;            /* ヘッダーの固定 */
+    top: 0px;                   /* 位置(上0px) */
+    left: 0px;                  /* 位置(右0px) */
+    width:100%;
+    height:120px;
+    z-index: 9;
+}
+
+h1{
+    background-color:rgba(150,150,150,0.5);
+    margin:0;
+    text-align: center;
+}
+
+h2{
+    margin:0;
+    font-size:4rem;
+    text-align: center;
+}
+
+ul{
+    /* width:60%; */
+    margin:auto;
+    /* border:solid;
+    border-radius:30px;     */
+}
+
+select{
+    width:100%;
+    height: 2rem;
+    font-size: 1.5rem;
+}
+
+
+
+#setUpDisp{
+    position:fixed;
+    top:0px;
+    left:5px;
+}
+    
+#startAndstop{
+    width:2rem;
+    position:fixed;
+    top:20px;
+    right:5px;
+}
+
+#mainBody{
+    /* margin-top:300px; */
+    padding-top:300px;
+    width:100%;
+    height: 100%;
+}
+
+#selectAnimetion{
+    width: 80%;
+}
+
+
+#animetion{
+    /* height:100%; */
+    width:80%;
+    margin:auto;
+    /* background-image: url(darwin.png);  */
+}
+
+#darwin{
+    opacity: 0;   
+    /* margin:auto; */
+    width:100%;
+}
+
+#areaAdd{
+    width:100%;
+}
+
+#taskText2{
+    width:80%;
+    height:100%;
+}
+
+.addtb{
+    width:90%;
+    height: 100%;
+    font-size: 1rem;
+}
+
+#tasklistarea{
+    width:60%;
+    margin:auto;
+    border:solid;
+    border-radius:30px;  
+}
+
+#setUp{
+    background-color: gray;
+    position:fixed;
+    /* top:-1000px; */
+    left:0px;
+    width:100%;
+    font-size:0.5rem;
+    /* font-size:4rem; */
+
+    z-index: 10;
+}
+
+#buttonSet{
+    width:100%;
+    height: 10%;
+}
+
+#newton{
+    position:fixed;
+    /* top:70%; */
+    /* top:20%; */
+    /* top:80%; */
+    right:30px;
+}
+
+.moveNewTom0{
+    top:20%;
+}
+
+.moveNewTom1{
+    top:30%;
+}
+
+.moveNewTom2{
+    top:40%;
+}
+
+.moveNewTom3{
+    top:60%;
+}
+
+.moveNewTom4{
+    top:80%;
+}
+
+
+
+
+#newtonImg{
+    width: 20%;
+    float:right;
+}
+
+.button1{
+    width:50%;
+    background-color: rgba(255,255,255,0.8);
+    float: left;
+    border: solid;
+}
+#ws_c{
+    width:50%;    
+    /* background-color:green; */
+    /* border: solid; */
+}
+
+
+
+
+.setUpFont{
+    font-size:0.5rem;
+}
+
+.darwinAnime{
+    animation-name: anime; /*　割り当てるアニメーションの名前 */
+    animation-duration: 0.8s; /* アニメーションの秒数 */
+    animation-fill-mode:forwards; /* アニメーション終了時の形で止める*/
+    /* animation-iteration-count: infinite; */
+}
+
+.setUphidden{
+    animation-name: setUpUp; /*　割り当てるアニメーションの名前 */
+    animation-duration: 0.8s; /* アニメーションの秒数 */
+    animation-fill-mode:forwards; /* アニメーション終了時の形で止める*/
+}
+
+.setUpdisp{
+    top:0px;
+}
+  /* アニメーション */
+  @keyframes anime
+  {
+    100% {
+        opacity: 1;
+    }
+  }
+  
+  @keyframes setUpUp
+  {
+    0% {
+        top:0px;
+    }
+    100% {
+        top:-1000px;
+    }
+  }
+
+
