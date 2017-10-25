@@ -173,16 +173,28 @@ var taskEleMake = (text)=>{
     if(text != ""){
         var tasklist = document.getElementsByClassName('tasklist')[0];
         var textnode = document.createTextNode(text);        
+        var label = document.createElement('label');        
         var checkbox = document.createElement('input');//チェックボックスelement作成
         checkbox.setAttribute('type', 'checkbox');
+        checkbox.setAttribute('class', 'hidden');
         checkbox.addEventListener('click',(e)=>{
-            //取り消し線
-            LInode.setAttribute('class', 'through');
-        });
-        LInode.appendChild(checkbox);
-        LInode.appendChild(textnode);
-        //tasklist.appendChild(LInode);
+            console.dir(e);
+            console.dir(checkbox.checked);
 
+            if(checkbox.checked==true){
+                console.log("取り消し線");
+                //取り消し線
+                LInode.setAttribute('class', 'through');
+            }else{
+                console.log("線を消す");                
+                //線を消す
+                LInode.removeAttribute('class');
+            }
+        });
+        label.appendChild(checkbox);
+        label.appendChild(textnode);
+        LInode.appendChild(label);
+        
         //topの中のidの前に挿入
         tasklist.insertBefore(LInode, document.getElementById('insertLI'));        
     }
@@ -202,6 +214,7 @@ var count = (startTime,times,aniObj)=>{
 
         
         if(flg==true){
+            // console.dir(aniObj);
             aniObj.changeImg();//アニメーション
             printTimeObj(times);
             count(now,times,aniObj);
@@ -214,11 +227,13 @@ var count = (startTime,times,aniObj)=>{
                 aniObj.changeImg();//アニメーション
                 aniObj = dispAnime(true);
 
+                
                 var tasklist = document.getElementsByClassName('tasklist')[0];
                 var firstList = tasklist.firstElementChild;
                 if(firstList == undefined)return;
                 tts(firstList.innerText+"開始");
                 console.log(firstList.innerText+"開始");
+                document.getElementsByTagName('title')[0].innerText = firstList.innerText+"実施中";
                 addH1(firstList.innerText);
                 var time = new Time(hour.value , min.value , sec.value);
                 count(Date.now()/1000 ,time,aniObj);
@@ -327,7 +342,7 @@ var startMethod = ()=>{
     
     //アニメーション設定
     var animetionObj = selectAnime();
-    
+    console.dir(animetionObj);
 
 
     printTimeObj(times);
@@ -361,7 +376,7 @@ var changePlayButton = (text)=>{
 }
 
 var dispAnime = (flg)=>{ 
-    console.log("dispAnime:"+flg);  
+    // console.log("dispAnime:"+flg);  
     var anime = document.getElementById('selectAnime');
     var animetion = document.getElementById("animetion");
     var newton_ = document.getElementById("newton");
@@ -371,13 +386,17 @@ var dispAnime = (flg)=>{
 
     // let obj;
     if(flg==true){
+        console.dir(anime);
         //play表示
-        if(anime.value=="darwin"){
+        if(anime.value==="darwin"){
             animetion.removeAttribute('class');
             obj =  new darwin().changeImg();
-        }else if(anime.value=="newton"){
+        }else if(anime.value==="newton"){
             newton_.removeAttribute('class');
             obj = new newton().changeImg();
+        }else{
+            console.log("アニメなし");
+            obj = new noneAnime().changeImg();
         }
     }
     return obj;
@@ -409,6 +428,7 @@ var aRraytoPara = (array,method)=>{
 
 class darwin{
     constructor(){
+        console.log("darwinConstructor");
         this.activeNum = 0;
         this.darwinImg = [
             "darwin00001.png",//0_10
@@ -426,8 +446,8 @@ class darwin{
     }
 
     nextImg(){
-        console.log("darwinFlg:"+darwinFlg);
-        console.log("activeNum:"+this.activeNum);
+        // console.log("darwinFlg:"+darwinFlg);
+        // console.log("activeNum:"+this.activeNum);
         
         let imgnum;
         if(darwinFlg===false){
@@ -436,7 +456,7 @@ class darwin{
         }else{
             imgnum = (this.activeNum++)+5;
         }
-        console.dir(this.darwinImg[imgnum]);
+        // console.dir(this.darwinImg[imgnum]);
         return this.darwinImg[imgnum];
     }
 
@@ -476,19 +496,21 @@ class newton{
 
     nextImg(){        
         let imgnum;
-        // console.log("this.activeNum:"+this.activeNum);
-        if(this.activeNum!==5){
-            imgnum = 0;
-        }else{
+        console.log("this.activeNum:"+this.activeNum);
+        console.log("darwinFlg:"+darwinFlg);
+        if(this.activeNum===5 && darwinFlg==true){
             console.log("nextImgElse");
             imgnum = 1;
+        }else{
+            console.log("donot last");
+            imgnum = 0;
         }
         return this.Img[imgnum];
     }
 
     nextStyle(){
         let stylenum = rotary(this.activeNum,this.styleClass.length);
-        if(this.activeNum===5){
+        if(this.activeNum===5&&darwinFlg==true){
             console.dir("stylenum:"+stylenum);
             console.dir(this.styleClass[stylenum]);
             stylenum = 4;
@@ -517,6 +539,20 @@ class newton{
         this.activeNum = num;
     }
 }
+
+class noneAnime{
+    constructor(){
+        this.activeNum = 0;
+        this.Img = [];
+        this.styleClass = [];
+    }
+    nextImg(){}
+    nextStyle(){}
+    changeImg(){}
+    flgChange(flg){}
+    setCount(num){}
+}
+
 
 var removeInputBox = ()=>{
     insertLI = document.getElementById('insertLI');
@@ -589,10 +625,16 @@ var rotary = (num,max)=>{
 
 var selectAnime = ()=>{
     var anime = document.getElementById('selectAnime');
-    if(anime.value=="darwin"){
+    console.dir(anime);
+    if(anime.value==="darwin"){
+        console.log("darwin");
         return new darwin().changeImg();
-    }else if(anime.value=="newton"){
+    }else if(anime.value==="newton"){
+        console.log("newton");        
         return new newton().changeImg();
+    }else{
+        console.log("noneAnime");   
+        return new noneAnime().changeImg();
     }
 }
 

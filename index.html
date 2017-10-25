@@ -36,15 +36,15 @@
         </div>
     </div>
 
-    <hr />
+    <!-- <hr /> -->
 
-    <div id="setUp" class="setUphidden">
+    <div id="setUp" class="startSetUphidden">
         <div id="select">
             アニメーション
             <select name="an" id="selectAnime">
-                    <option value="darwin">ダーウィン</option>
-                    <option value="newton">ニュートン</option>
-
+                <option value="newton" selected>ニュートン</option>
+                <option value="darwin">ダーウィン</option>
+                <option value="none" >アニメーションなし</option>                
             </select><br />
             Hour
             <select name="hour" id="hour">
@@ -55,8 +55,9 @@
             </select><br />
             Minutes
             <select name="min" id="min">
-                <option value="0" selected>0</option>
-                <option value="5">5</option>
+                <option value="0">0</option>
+                <option value="5" selected>5</option>
+                <!-- <option value="5">5</option> -->
                 <option value="10">10</option>
                 <option value="15">15</option>
                 <option value="20">20</option>
@@ -71,22 +72,14 @@
             Second
             <select name="sec" id="sec">
                 <option value="0">0</option>
-                <option value="10" selected>10</option>
+                <!-- <option value="10" selected>10</option> -->
+                <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="30">30</option>
                 <option value="40">40</option>
                 <option value="50">50</option>
             </select>
         </div>
-        <!-- <button id="taskAdd">追加</button>    
-        <button id="areaAddchange">複数可</button>        
-        <button id="taskAdd2">追加</button>    
-        <button id="areaAddchange2">複数不可</button>
-        <button id="taskNext">送る</button>    
-        <ul class="tasklist"></ul> -->
-        <!-- <button id="ws">ws</button> -->
-        <!-- <button id="ws_c">todoDelete</button> -->
-        <!-- <h2 id="setUphidden">×</h2> -->
 
         <div id="buttonSet">
                 <span id="setUphidden" class="button1"><h2>×</h2></span>

@@ -27,7 +27,7 @@ header{
 }
 
 h1{
-    background-color:rgba(150,150,150,0.5);
+    background-color:rgba(150,150,150,1);
     margin:0;
     text-align: center;
 }
@@ -80,6 +80,7 @@ select{
 
 #animetion{
     /* height:100%; */
+    /* margin-top:100px; */
     width:80%;
     margin:auto;
     /* background-image: url(darwin.png);  */
@@ -196,6 +197,10 @@ select{
     animation-name: setUpUp; /*　割り当てるアニメーションの名前 */
     animation-duration: 0.8s; /* アニメーションの秒数 */
     animation-fill-mode:forwards; /* アニメーション終了時の形で止める*/
+}
+
+.startSetUphidden{
+    top:-1000px;
 }
 
 .setUpdisp{
