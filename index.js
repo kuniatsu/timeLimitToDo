@@ -50,7 +50,7 @@ window.onload = ()=>{
     ws_c.addEventListener('click',()=>{
         console.log("clear");
         var ws = new webStorage();
-        ws.clear()
+        ws.clear();
 
         //全てのtodoにチェックを入れる
         // document.getElementById("checkbox").checked = true;
@@ -130,7 +130,7 @@ var nextTask = ()=>{
     }else{
         return false;
     } 
-}
+};
 
 
 //チェックされているタスクを削除する
@@ -144,7 +144,7 @@ var deleteEndTask = (tasklist)=>{
             new webStorage().removeItem(item.innerText);
         }
     });
-}
+};
 
 
 ///タスクの登録があるかを確認
@@ -158,14 +158,14 @@ var checkTask = ()=>{
     }else{
         return "";
     } 
-}
+};
 
 var taskMake = ()=>{
     var taskText = document.getElementById('taskText');
     var ele = taskEleMake(taskText.value);
     taskText.value = "";
     return ele;
-}
+};
 
 ///タスクリスト追加
 var taskEleMake = (text)=>{
@@ -199,7 +199,7 @@ var taskEleMake = (text)=>{
         tasklist.insertBefore(LInode, document.getElementById('insertLI'));        
     }
     return LInode;
-}
+};
 
 
 var count = (startTime,times,aniObj)=>{
@@ -244,14 +244,14 @@ var count = (startTime,times,aniObj)=>{
             }
         }
     },1000);
-}
+};
 
 var printTimeObj = (t)=>{
     var disph = "0"+Math.floor(t.hour);
     var dispm = Math.floor(t.min)<10? "0"+Math.floor(t.min):Math.floor(t.min);
     var disps = Math.floor(t.sec)<10? "0"+Math.floor(t.sec):Math.floor(t.sec);
     timeText.innerText = disph +":"+ dispm +":"+ disps;
-}
+};
 
 class Time{
     constructor(hour,min,sec){
@@ -306,17 +306,17 @@ var tts = (speak)=> {
     var msg = new SpeechSynthesisUtterance();
     msg.text = speak; // 喋る内容
     speechSynthesis.speak(msg);// 発話実行
-}
+};
 
 var addH1 = (text)=>{
     var h1 = document.getElementById('activeTaskName');
     h1.innerText = text;
-}
+};
 
 
 var setTimeObj = (time)=>{
     timeTmp = time;
-}
+};
 
 ///表示非表示を切り替える
 ///hiddenId:隠す要素のid
@@ -326,7 +326,7 @@ var changeTextBox = (hiddenId,dispId)=>{
     hidd.setAttribute('class', 'dispnon');
     var disp = document.getElementById(dispId);
     disp.removeAttribute('class');    
-}
+};
 
 var startMethod = ()=>{
     var times = null;
@@ -359,21 +359,21 @@ var startMethod = ()=>{
     
 
     count(Date.now()/1000,times.startSec(),animetionObj);
-}
+};
 
 var stopMethod = ()=>{
     clearTimeout(timerId);
     changePlayButton("play.png");
     dispAnime(false);
     makeInputBox();
-}
+};
 
 var changePlayButton = (text)=>{
     var startAndstop = document.getElementById('startAndstop');
     // startAndstop.innerText = text;
     startAndstop.removeAttribute('src');   
     startAndstop.setAttribute('src', text);
-}
+};
 
 var dispAnime = (flg)=>{ 
     // console.log("dispAnime:"+flg);  
@@ -400,7 +400,7 @@ var dispAnime = (flg)=>{
         }
     }
     return obj;
-}
+};
 
 
 
@@ -409,7 +409,7 @@ var checkKeyPress = (e,keyNum,method)=>{
     if (key === keyNum) { // 13 is enter
         return method();
     }
-}
+};
 
 var bRtoArray = (text)=>{
     //改行区切りの配列に変換
@@ -424,7 +424,7 @@ var aRraytoPara = (array,method)=>{
     array.forEach((item)=>{
         method(item);
     });
-}
+};
 
 class darwin{
     constructor(){
@@ -558,12 +558,12 @@ var removeInputBox = ()=>{
     insertLI = document.getElementById('insertLI');
     insertLI.remove();
     console.dir(insertLI);
-}
+};
 
 var makeInputBox = ()=>{
     var tasklist = document.getElementsByClassName('tasklist')[0];
     tasklist.appendChild(insertLI);   
-}
+};
 
 
 class webStorage{
@@ -612,7 +612,7 @@ var taskLoad = ()=>{
     for (var i = 0; i < s.length; i++) {
         taskEleMake(s.key(i));
     }
-}
+};
 
 var rotary = (num,max)=>{
     console.log("num,max:"+num+","+max);
@@ -621,7 +621,7 @@ var rotary = (num,max)=>{
     }else{
         return num%max;
     }
-}
+};
 
 var selectAnime = ()=>{
     var anime = document.getElementById('selectAnime');
@@ -636,5 +636,5 @@ var selectAnime = ()=>{
         console.log("noneAnime");   
         return new noneAnime().changeImg();
     }
-}
+};
 
