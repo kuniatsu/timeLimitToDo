@@ -65,6 +65,7 @@ select{
     width:2rem;
     position:fixed;
     top:20px;
+    /*     top:5px; /* monacaの位置*/
     right:5px;
 }
 

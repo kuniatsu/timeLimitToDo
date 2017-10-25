@@ -418,7 +418,7 @@ var bRtoArray = (text)=>{
         return a.split(/\r\n|\r|\n/);
     }
     return new Array();
-}
+};
 
 var aRraytoPara = (array,method)=>{
     array.forEach((item)=>{
