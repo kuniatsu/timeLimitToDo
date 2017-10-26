@@ -53,8 +53,6 @@ select{
     font-size: 1.5rem;
 }
 
-
-
 #setUpDisp{
     position:fixed;
     top:0px;
@@ -71,7 +69,8 @@ select{
 
 #mainBody{
     /* margin-top:300px; */
-    padding-top:300px;
+    padding-top:300px; 
+    /* padding-top:100px;  /*monacaの位置*/
     width:100%;
     height: 100%;
 }
