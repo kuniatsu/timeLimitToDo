@@ -29,7 +29,7 @@ window.onload = ()=>{
     tasklist = document.getElementsByClassName('tasklist')[0];
     var h2 = document.getElementsByTagName('h2')[0];
     var ws = document.getElementById('ws');
-    var ws_c = document.getElementById('ws_c');
+    var ws_c = document.getElementById('delete_id');
     var setUpDisp = document.getElementById('setUpDisp');
     var setUphidden = document.getElementById('setUphidden');
     
@@ -62,6 +62,9 @@ window.onload = ()=>{
             //取り消し線追加
             a[i].setAttribute('class', 'through');
         }
+
+        //h1やタイトルも戻す
+        changeTitle("タスク未設定");
 
         // //Listを削除
         var tasklist = document.getElementsByClassName('tasklist')[0];
@@ -222,10 +225,13 @@ var count = (startTime,times,aniObj)=>{
             if(nextTask()){
                 console.log("nextTask");
 
-                aniObj.setCount(0);
-                aniObj.flgChange(false);
-                aniObj.changeImg();//アニメーション
-                aniObj = dispAnime(true);
+                // aniObj.setCount(0);
+                // aniObj.flgChange(false);
+                // aniObj.changeImg();//アニメーション
+                // aniObj = dispAnime(true);
+                aniObj = aniObj.nextTaskSet();
+
+
 
                 
                 var tasklist = document.getElementsByClassName('tasklist')[0];
@@ -233,8 +239,11 @@ var count = (startTime,times,aniObj)=>{
                 if(firstList == undefined)return;
                 tts(firstList.innerText+"開始");
                 console.log(firstList.innerText+"開始");
-                document.getElementsByTagName('title')[0].innerText = firstList.innerText+"実施中";
-                addH1(firstList.innerText);
+                
+                changeTitle(firstList.innerText);
+                //document.getElementsByTagName('title')[0].innerText = firstList.innerText+"実施中";
+                //addH1(firstList.innerText);
+
                 var time = new Time(hour.value , min.value , sec.value);
                 count(Date.now()/1000 ,time,aniObj);
             }else{
@@ -476,6 +485,13 @@ class darwin{
     setCount(num){
         this.activeNum = num;
     }
+
+    nextTaskSet(){
+        this.setCount(0);
+        this.flgChange(false);
+        this.changeImg();//アニメーション
+        return dispAnime(true);
+    }
 }
 
 class newton{
@@ -538,6 +554,13 @@ class newton{
     setCount(num){
         this.activeNum = num;
     }
+
+    nextTaskSet(){
+        this.setCount(0);
+        this.flgChange(false);
+        this.changeImg();//アニメーション
+        return dispAnime(true);
+    }
 }
 
 class noneAnime{
@@ -545,6 +568,9 @@ class noneAnime{
         this.activeNum = 0;
         this.Img = [];
         this.styleClass = [];
+    }
+    nextTaskSet(){
+        return dispAnime(true);
     }
     nextImg(){}
     nextStyle(){}
@@ -637,4 +663,24 @@ var selectAnime = ()=>{
         return new noneAnime().changeImg();
     }
 };
+
+var changeTitle = (text)=>{
+    document.getElementsByTagName('title')[0].innerText = text+"実施中";
+    addH1(text);
+}
+
+
+
+
+
+
+//ガリレオアニメーション
+//関数化
+//ファビコン
+
+//NG後
+//個々のタスクの編集
+//次へボタン
+//タスクリスト順番変更
+
 
