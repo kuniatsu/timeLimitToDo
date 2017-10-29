@@ -18,19 +18,31 @@ html, body{
 }
 
 
+
 header{
     margin:0;
     position: fixed;            /* ヘッダーの固定 */
     top: 0px;                   /* 位置(上0px) */
     left: 0px;                  /* 位置(右0px) */
     width:100%;
+/*  height:40px;   /*monacaは1/3でちょうど良い*/
     height:120px;
     z-index: 9;
+    background-color:rgba(0,0,0,1);
+/*    background-color:rgba(150,150,150,1); /* monacaでは色を同じにして時間を出す*/
+}
+
+#copyLight{
+    margin:0px;
+    position: fixed;
+    top: 0px; 
+    color:white;
+    font-family: 'Indie Flower',serif;
 }
 
 h1{
-    background-color:rgba(150,150,150,1);
-    margin:0;
+/*    margin-top: 20px;   /* monaca */
+    background-color:rgba(150,150,150,1); 
     text-align: center;
 }
 
@@ -38,13 +50,11 @@ h2{
     margin:0;
     font-size:4rem;
     text-align: center;
+    font-family: 'Lobster',serif;
 }
 
 ul{
-    /* width:60%; */
     margin:auto;
-    /* border:solid;
-    border-radius:30px;     */
 }
 
 select{
@@ -53,23 +63,29 @@ select{
     font-size: 1.5rem;
 }
 
+#select{
+    margin-top: 20px;
+}
+
+
 #setUpDisp{
     position:fixed;
-    top:0px;
+/*  top:20px; /* monacaの位置*/
+    top:50px;
     left:5px;
 }
     
 #startAndstop{
     width:2rem;
     position:fixed;
-    top:20px;
-    /*     top:5px; /* monacaの位置*/
+    top:60px;
+    /*     top:25px; /* monacaの位置*/
     right:5px;
 }
 
 #mainBody{
-    padding-top:300px; 
-    /* padding-top:100px;  /*monacaの位置*/
+    padding-top:500px; 
+    /* padding-top:200px;  /*monacaの位置*/
     width:100%;
     height: 100%;
 }
@@ -80,16 +96,12 @@ select{
 
 
 #animetion{
-    /* height:100%; */
-    /* margin-top:100px; */
     width:80%;
     margin:auto;
-    /* background-image: url(darwin.png);  */
 }
 
 #darwin{
     opacity: 0;   
-    /* margin:auto; */
     width:100%;
 }
 
@@ -118,12 +130,9 @@ select{
 #setUp{
     background-color: gray;
     position:fixed;
-    /* top:-1000px; */
     left:0px;
     width:100%;
     font-size:0.5rem;
-    /* font-size:4rem; */
-
     z-index: 10;
 }
 
@@ -134,9 +143,6 @@ select{
 
 #newton{
     position:fixed;
-    /* top:70%; */
-    /* top:20%; */
-    /* top:80%; */
     right:30px;
 }
 
@@ -160,9 +166,6 @@ select{
     top:80%;
 }
 
-
-
-
 #newtonImg{
     width: 20%;
     float:right;
@@ -174,14 +177,10 @@ select{
     float: left;
     border: solid;
 }
-#ws_c{
+
+#delete_id{
     width:50%;    
-    /* background-color:green; */
-    /* border: solid; */
 }
-
-
-
 
 .setUpFont{
     font-size:0.5rem;
@@ -191,7 +190,6 @@ select{
     animation-name: anime; /*　割り当てるアニメーションの名前 */
     animation-duration: 0.8s; /* アニメーションの秒数 */
     animation-fill-mode:forwards; /* アニメーション終了時の形で止める*/
-    /* animation-iteration-count: infinite; */
 }
 
 .setUphidden{

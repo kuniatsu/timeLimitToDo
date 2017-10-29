@@ -55,8 +55,8 @@ window.onload = ()=>{
         //全てのtodoにチェックを入れる
         // document.getElementById("checkbox").checked = true;
         var a = document.getElementsByTagName('li');
-        console.dir(a);
-        console.dir(a.length);
+        // console.dir(a);
+        // console.dir(a.length);
         for(var i=0;i<a.length;i++){
             if(a[i].id == 'insertLI')continue;
             //取り消し線追加
@@ -83,7 +83,7 @@ window.onload = ()=>{
         var ws = new webStorage();
         if(ws.checkWS()&&ele!==undefined){
             console.log("ws{");
-            console.dir(ele);
+            // console.dir(ele);
             console.log("ele.innerText:"+ele.innerText);            
             console.log("}ws");
             ws.setItem(ele.outerText, ele.outerHTML);
@@ -143,7 +143,7 @@ var deleteEndTask = (tasklist)=>{
     selects.forEach(function(item) {
         if(item.getAttribute("class") != null && item.getAttribute("class").indexOf("through")>=0){
             item.parentNode.removeChild(item);
-            console.dir(item);
+            // console.dir(item);
             new webStorage().removeItem(item.innerText);
         }
     });
@@ -181,8 +181,8 @@ var taskEleMake = (text)=>{
         checkbox.setAttribute('type', 'checkbox');
         checkbox.setAttribute('class', 'hidden');
         checkbox.addEventListener('click',(e)=>{
-            console.dir(e);
-            console.dir(checkbox.checked);
+            // console.dir(e);
+            // console.dir(checkbox.checked);
 
             if(checkbox.checked==true){
                 console.log("取り消し線");
@@ -225,15 +225,8 @@ var count = (startTime,times,aniObj)=>{
             if(nextTask()){
                 console.log("nextTask");
 
-                // aniObj.setCount(0);
-                // aniObj.flgChange(false);
-                // aniObj.changeImg();//アニメーション
-                // aniObj = dispAnime(true);
                 aniObj = aniObj.nextTaskSet();
 
-
-
-                
                 var tasklist = document.getElementsByClassName('tasklist')[0];
                 var firstList = tasklist.firstElementChild;
                 if(firstList == undefined)return;
@@ -322,7 +315,6 @@ var addH1 = (text)=>{
     h1.innerText = text;
 };
 
-
 var setTimeObj = (time)=>{
     timeTmp = time;
 };
@@ -351,21 +343,17 @@ var startMethod = ()=>{
     
     //アニメーション設定
     var animetionObj = selectAnime();
-    console.dir(animetionObj);
-
+    // console.dir(animetionObj);
 
     printTimeObj(times);
     //inputBox削除
     removeInputBox();
-
 
     var task = checkTask();
     if(task.innerText != undefined){
         tts(task.innerText+"開始");
         addH1(task.innerText);
     }
-
-    
 
     count(Date.now()/1000,times.startSec(),animetionObj);
 };
@@ -379,13 +367,11 @@ var stopMethod = ()=>{
 
 var changePlayButton = (text)=>{
     var startAndstop = document.getElementById('startAndstop');
-    // startAndstop.innerText = text;
     startAndstop.removeAttribute('src');   
     startAndstop.setAttribute('src', text);
 };
 
-var dispAnime = (flg)=>{ 
-    // console.log("dispAnime:"+flg);  
+var dispAnime = (flg)=>{  
     var anime = document.getElementById('selectAnime');
     var animetion = document.getElementById("animetion");
     var newton_ = document.getElementById("newton");
@@ -393,16 +379,15 @@ var dispAnime = (flg)=>{
     animetion.setAttribute('class', "dispnon");
     newton_.setAttribute('class', "dispnon");
 
-    // let obj;
     if(flg==true){
-        console.dir(anime);
+        // console.dir(anime);
         //play表示
         if(anime.value==="darwin"){
             animetion.removeAttribute('class');
-            obj =  new darwin().changeImg();
+            obj =  new Darwin().changeImg();
         }else if(anime.value==="newton"){
             newton_.removeAttribute('class');
-            obj = new newton().changeImg();
+            obj = new Newton().changeImg();
         }else{
             console.log("アニメなし");
             obj = new noneAnime().changeImg();
@@ -435,7 +420,7 @@ var aRraytoPara = (array,method)=>{
     });
 };
 
-class darwin{
+class Darwin{
     constructor(){
         console.log("darwinConstructor");
         this.activeNum = 0;
@@ -494,7 +479,7 @@ class darwin{
     }
 }
 
-class newton{
+class Newton{
     constructor(){
         this.activeNum = 0;
         this.Img = [
@@ -527,8 +512,8 @@ class newton{
     nextStyle(){
         let stylenum = rotary(this.activeNum,this.styleClass.length);
         if(this.activeNum===5&&darwinFlg==true){
-            console.dir("stylenum:"+stylenum);
-            console.dir(this.styleClass[stylenum]);
+            // console.dir("stylenum:"+stylenum);
+            // console.dir(this.styleClass[stylenum]);
             stylenum = 4;
         }
         this.activeNum++;
@@ -583,14 +568,13 @@ class noneAnime{
 var removeInputBox = ()=>{
     insertLI = document.getElementById('insertLI');
     insertLI.remove();
-    console.dir(insertLI);
+    // console.dir(insertLI);
 };
 
 var makeInputBox = ()=>{
     var tasklist = document.getElementsByClassName('tasklist')[0];
     tasklist.appendChild(insertLI);   
 };
-
 
 class webStorage{
     constructor(){
@@ -613,7 +597,6 @@ class webStorage{
     getWSCount(){
         return this.storage.length;
     }
-
 
     getItem(name){
         //webstorageから読み出し
@@ -640,6 +623,7 @@ var taskLoad = ()=>{
     }
 };
 
+
 var rotary = (num,max)=>{
     console.log("num,max:"+num+","+max);
     if(num<max){
@@ -649,15 +633,16 @@ var rotary = (num,max)=>{
     }
 };
 
+
 var selectAnime = ()=>{
     var anime = document.getElementById('selectAnime');
-    console.dir(anime);
+    // console.dir(anime);
     if(anime.value==="darwin"){
         console.log("darwin");
-        return new darwin().changeImg();
+        return new Darwin().changeImg();
     }else if(anime.value==="newton"){
         console.log("newton");        
-        return new newton().changeImg();
+        return new Newton().changeImg();
     }else{
         console.log("noneAnime");   
         return new noneAnime().changeImg();
@@ -671,16 +656,12 @@ var changeTitle = (text)=>{
 
 
 
-
-
-
 //ガリレオアニメーション
 //関数化
-//ファビコン
 
-//NG後
+//<!--NG後-->
 //個々のタスクの編集
 //次へボタン
 //タスクリスト順番変更
-
+//nextTaskOff機能＆アラート
 
