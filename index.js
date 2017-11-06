@@ -33,6 +33,20 @@ window.onload = ()=>{
     var setUpDisp = document.getElementById('setUpDisp');
     var setUphidden = document.getElementById('setUphidden');
     
+    var selectBox = [
+        document.getElementById('selectAnime'),
+        document.getElementById('hour'),
+        document.getElementById('min'),
+        document.getElementById('sec')            
+    ];
+
+
+    selectBox.forEach((item)=>{
+        item.addEventListener('change',()=>{
+            changeCrossToOk('OK');
+        });
+    });
+
     setUpDisp.addEventListener('click',()=>{
         //setUp要素のいちを下げる
         var setUp = document.getElementById('setUp');
@@ -45,6 +59,9 @@ window.onload = ()=>{
         var setUp = document.getElementById('setUp');
         setUp.removeAttribute('class');
         setUp.setAttribute('class', 'setUphidden');
+        
+        //OKを×に変更
+        changeCrossToOk('×');
     });
 
     ws_c.addEventListener('click',()=>{
@@ -69,6 +86,10 @@ window.onload = ()=>{
         // //Listを削除
         var tasklist = document.getElementsByClassName('tasklist')[0];
         deleteEndTask(tasklist);//取り消し線が書かれているものを消す
+
+
+        //かり
+        changeCrossToOk('ok');
 
     });
 
@@ -108,6 +129,9 @@ window.onload = ()=>{
     startAndstop.addEventListener('click',function(){
         if(buttonFlg){
             startMethod();
+
+            //最大時間を表示
+            maxTime();
         }else{
             stopMethod();
         }
@@ -219,7 +243,7 @@ var count = (startTime,times,aniObj)=>{
         if(flg==true){
             // console.dir(aniObj);
             aniObj.changeImg();//アニメーション
-            printTimeObj(times);
+            timeText.innerText = printTimeObj(times);
             count(now,times,aniObj);
         }else{
             if(nextTask()){
@@ -252,8 +276,10 @@ var printTimeObj = (t)=>{
     var disph = "0"+Math.floor(t.hour);
     var dispm = Math.floor(t.min)<10? "0"+Math.floor(t.min):Math.floor(t.min);
     var disps = Math.floor(t.sec)<10? "0"+Math.floor(t.sec):Math.floor(t.sec);
-    timeText.innerText = disph +":"+ dispm +":"+ disps;
+    //timeText.innerText = t.margeTime(disph,dispm,disps);
+    return t.margeTime(disph,dispm,disps);
 };
+
 
 class Time{
     constructor(hour,min,sec){
@@ -302,6 +328,15 @@ class Time{
         this.sec = Number(this.sec)+1;
         return this;
     }
+    margeTime(h,m,s){
+        return h +":"+ m +":"+ s;
+    }
+
+
+    getTimeStr(){
+        return this.hour +":"+ this.min +":"+ this.sec;
+    }
+
 }
 
 var tts = (speak)=> {
@@ -345,7 +380,7 @@ var startMethod = ()=>{
     var animetionObj = selectAnime();
     // console.dir(animetionObj);
 
-    printTimeObj(times);
+    timeText.innerText = printTimeObj(times);
     //inputBox削除
     removeInputBox();
 
@@ -654,14 +689,28 @@ var changeTitle = (text)=>{
     addH1(text);
 }
 
+var maxTime = ()=>{
+    var timeLimit = document.getElementById('timeLimit');
+    times = new Time(hour.value , min.value , sec.value);
+    console.dir(times);
+    timeLimit.innerText = printTimeObj(times);
+}
+
+var changeCrossToOk = (text)=>{
+    document.getElementById('settingSubmit').innerText = text;
+}
 
 
-//ガリレオアニメーション
-//関数化
+//時間設定もwebstoでほじ
+//OKやdeleteの文字のフォントを変更
 
 //<!--NG後-->
+//秒数を飛ばす、別画面の時の読み上げなど
+//ガリレオアニメーション
 //個々のタスクの編集
 //次へボタン
 //タスクリスト順番変更
 //nextTaskOff機能＆アラート
-
+//タスクに＋＠の時間を追加する。
+//タスクsend機能
+//時間を止めているときは時間表示はヘッダーに収納される。開始するとアニメーションで出てくる。

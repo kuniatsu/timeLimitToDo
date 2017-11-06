@@ -121,11 +121,21 @@ select{
 }
 
 #tasklistarea{
-    width:60%;
+    width:100%;
     margin:auto;
     border:solid;
     border-radius:30px;  
 }
+
+/*スマホ表示用*/
+@media (min-width:500px){
+    #tasklistarea{
+        width:60%;
+    }
+}
+
+
+
 
 #setUp{
     background-color: gray;
@@ -145,6 +155,11 @@ select{
     position:fixed;
     right:30px;
 }
+
+.timeLimit{
+    font-size: 10%;
+}
+
 
 .moveNewTom0{
     top:20%;
