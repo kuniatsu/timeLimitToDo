@@ -32,14 +32,24 @@ window.onload = ()=>{
     var ws_c = document.getElementById('delete_id');
     var setUpDisp = document.getElementById('setUpDisp');
     var setUphidden = document.getElementById('setUphidden');
+    var testbutton = document.getElementById('testbutton');
     
+
+    /*
+    testbutton.addEventListener('click',()=>{
+        var ws = new webStorage();
+        alert(
+            ws.getItem("menu")
+        );
+    });
+    */    
+
     var selectBox = [
         document.getElementById('selectAnime'),
         document.getElementById('hour'),
         document.getElementById('min'),
         document.getElementById('sec')            
     ];
-
 
     selectBox.forEach((item)=>{
         item.addEventListener('change',()=>{
@@ -53,16 +63,20 @@ window.onload = ()=>{
         setUp.removeAttribute('class');
         setUp.setAttribute('class', 'setUpdisp');
     });
-    
+             
     setUphidden.addEventListener('click',()=>{
         //setUp要素のいちを下げる
         var setUp = document.getElementById('setUp');
         setUp.removeAttribute('class');
         setUp.setAttribute('class', 'setUphidden');
-        
         //OKを×に変更
         changeCrossToOk('×');
+
+        //webstoにmenuの内容を保存する。
+        var ws = new webStorage();
+        ws.setMenu(ws,selectBox);
     });
+
 
     ws_c.addEventListener('click',()=>{
         console.log("clear");
@@ -87,10 +101,10 @@ window.onload = ()=>{
         var tasklist = document.getElementsByClassName('tasklist')[0];
         deleteEndTask(tasklist);//取り消し線が書かれているものを消す
 
+        //設定時間も初期化
+        initTime();
 
-        //かり
         changeCrossToOk('ok');
-
     });
 
 
@@ -129,7 +143,6 @@ window.onload = ()=>{
     startAndstop.addEventListener('click',function(){
         if(buttonFlg){
             startMethod();
-
             //最大時間を表示
             maxTime();
         }else{
@@ -196,6 +209,9 @@ var taskMake = ()=>{
 
 ///タスクリスト追加
 var taskEleMake = (text)=>{
+
+    console.log(text + "=menu???");
+
     var LInode = document.createElement("LI");//リストelement作成
     if(text != ""){
         var tasklist = document.getElementsByClassName('tasklist')[0];
@@ -626,6 +642,8 @@ class webStorage{
 
     setItem(name,item){
         //webstorageに保存
+        console.log("123456781234567812345678");
+        console.log(name+":"+item);
         this.storage.setItem(name,item);
     }
 
@@ -648,16 +666,49 @@ class webStorage{
     clear(){
         this.storage.clear();
     }
+
+    setMenu(ws,selectBox){
+        var selectMenu = [];
+        selectBox.forEach((selectBox)=>{
+            selectMenu.push(selectBox.value);
+        });
+        ws.setItem("menu",selectMenu);
+    }
 }
 
 
 var taskLoad = ()=>{
-    var s = new webStorage().getAllItem();
+    var ws = new webStorage(); 
+    //保存されているリストを表示
+    var s = ws.getAllItem();
+    console.dir(s);
     for (var i = 0; i < s.length; i++) {
+        if(s.key(i)==="menu")continue;
         taskEleMake(s.key(i));
     }
+    //保存されているmenuを表示
+    var menu = ws.getItem('menu');
+    initMenu(menu);
 };
 
+var initMenu = (menu)=>{
+    var selectAnime = document.getElementById('selectAnime');
+    var hour = document.getElementById('hour');
+    var min = document.getElementById('min');
+    var sec = document.getElementById('sec'); 
+    if(menu===null)return;
+    selectAnime.value = menu.split(",")[0];
+    hour.value = menu.split(",")[1];
+    min.value = menu.split(",")[2];
+    sec.value = menu.split(",")[3];
+}
+
+var initTime = ()=>{
+    document.getElementById('hour').value = 0;
+    document.getElementById('min').value = 5;
+    document.getElementById('sec').value = 0;  
+
+};
 
 var rotary = (num,max)=>{
     console.log("num,max:"+num+","+max);
@@ -701,8 +752,9 @@ var changeCrossToOk = (text)=>{
 }
 
 
-//時間設定もwebstoでほじ
-//OKやdeleteの文字のフォントを変更
+//時間設定もwebstoでほじ//追加オフラインのためgithubには未push
+//deleteで設定時間の初期化//追加オフラインのためgithubには未push
+//menuがtodoリストに入ってしまう不具合解消。
 
 //<!--NG後-->
 //秒数を飛ばす、別画面の時の読み上げなど

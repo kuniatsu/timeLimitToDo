@@ -151,6 +151,14 @@ select{
     height: 10%;
 }
 
+#delText{
+    font-family: serif;
+}
+
+#settingSubmit{
+    font-family: serif;
+}
+
 #newton{
     position:fixed;
     right:30px;
