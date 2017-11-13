@@ -33,6 +33,7 @@ window.onload = ()=>{
     var setUpDisp = document.getElementById('setUpDisp');
     var setUphidden = document.getElementById('setUphidden');
     var testbutton = document.getElementById('testbutton');
+    var checkLoop = document.getElementById('checkLoop');
     
 
     /*
@@ -48,8 +49,13 @@ window.onload = ()=>{
         document.getElementById('selectAnime'),
         document.getElementById('hour'),
         document.getElementById('min'),
-        document.getElementById('sec')            
+        document.getElementById('sec'),
+        document.getElementById('checkLoop')
     ];
+
+    checkLoop.addEventListener('click',()=>{
+        checkLoop.value = checkLoop.checked;
+    });
 
     selectBox.forEach((item)=>{
         item.addEventListener('change',()=>{
@@ -209,9 +215,6 @@ var taskMake = ()=>{
 
 ///タスクリスト追加
 var taskEleMake = (text)=>{
-
-    console.log(text + "=menu???");
-
     var LInode = document.createElement("LI");//リストelement作成
     if(text != ""){
         var tasklist = document.getElementsByClassName('tasklist')[0];
@@ -262,11 +265,10 @@ var count = (startTime,times,aniObj)=>{
             timeText.innerText = printTimeObj(times);
             count(now,times,aniObj);
         }else{
-            if(nextTask()){
+            if(!oneStop() &&　nextTask()){
+                
                 console.log("nextTask");
-
                 aniObj = aniObj.nextTaskSet();
-
                 var tasklist = document.getElementsByClassName('tasklist')[0];
                 var firstList = tasklist.firstElementChild;
                 if(firstList == undefined)return;
@@ -287,6 +289,13 @@ var count = (startTime,times,aniObj)=>{
         }
     },1000);
 };
+
+var oneStop = ()=>{
+    console.log("oneStopCheck");
+    var checkLoop = document.getElementById('checkLoop');
+    console.dir(checkLoop);    
+    return checkLoop.checked;
+}
 
 var printTimeObj = (t)=>{
     var disph = "0"+Math.floor(t.hour);
@@ -681,7 +690,6 @@ var taskLoad = ()=>{
     var ws = new webStorage(); 
     //保存されているリストを表示
     var s = ws.getAllItem();
-    console.dir(s);
     for (var i = 0; i < s.length; i++) {
         if(s.key(i)==="menu")continue;
         taskEleMake(s.key(i));
@@ -692,16 +700,24 @@ var taskLoad = ()=>{
 };
 
 var initMenu = (menu)=>{
+    if(menu===null)return;
     var selectAnime = document.getElementById('selectAnime');
     var hour = document.getElementById('hour');
     var min = document.getElementById('min');
     var sec = document.getElementById('sec'); 
-    if(menu===null)return;
+    var checkLoop = document.getElementById('checkLoop'); 
     selectAnime.value = menu.split(",")[0];
     hour.value = menu.split(",")[1];
     min.value = menu.split(",")[2];
     sec.value = menu.split(",")[3];
+
+    if(menu.split(",")[4]==="true"){
+        checkLoop.checked = true;
+    }else{
+        checkLoop.checked = false;    
+    }
 }
+
 
 var initTime = ()=>{
     document.getElementById('hour').value = 0;
@@ -752,10 +768,6 @@ var changeCrossToOk = (text)=>{
 }
 
 
-//時間設定もwebstoでほじ//追加オフラインのためgithubには未push
-//deleteで設定時間の初期化//追加オフラインのためgithubには未push
-//menuがtodoリストに入ってしまう不具合解消。
-
 //<!--NG後-->
 //秒数を飛ばす、別画面の時の読み上げなど
 //ガリレオアニメーション
@@ -764,5 +776,5 @@ var changeCrossToOk = (text)=>{
 //タスクリスト順番変更
 //nextTaskOff機能＆アラート
 //タスクに＋＠の時間を追加する。
-//タスクsend機能
+//タスクsend機能(複数人対応)
 //時間を止めているときは時間表示はヘッダーに収納される。開始するとアニメーションで出てくる。

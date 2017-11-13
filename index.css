@@ -164,6 +164,12 @@ select{
     right:30px;
 }
 
+#menuCheckBox{
+    margin:10px;
+    font-size: 1rem;
+}
+
+
 .timeLimit{
     font-size: 10%;
 }
